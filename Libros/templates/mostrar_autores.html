@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilo.css') }}">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="d-flex flex-row justify-content-around">
+        <div>
+            <h1>Favoritos de: {{autor['nombre']}}</h1>
+            <table class = "table boder border-2">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Número de Páginas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for libro in libros%}
+        
+                    <tr>
+                        <td>{{libro['titulo']}}</td>
+                        <td>{{libro['numero_de_pagina']}}</td>
+        
+                    </tr>
+                {%endfor%}    
+                </tbody>
+            </table>
+            <a href="/autores">Inicio</a>
+        </div>
+        <div>
+            <h1>Agregar Favoritos del Autor</h1>
+            <form action="/agregar_favorito" method = "post">
+                <div class="form-group row">
+                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Libro</label>
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm" id="exampleFormControlSelect1" name="libro_id">
+                            {% for libro in todos_libros %}
+                                <option value="{{libro['id']}}">{{libro['titulo']}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" value="{{autor['id']}}" name="autor_id">
+                <input type="submit" class="btn btn-danger" value="Agregar">
+            </form>
+        </div>
+    </div>
+   
+</body>
+</html>
